@@ -1,0 +1,20 @@
+#container{
+    display: inline;
+    position: fixed;
+    height:fit-content;
+    width: 500px;
+    border: 0.2em black solid;
+    padding:5px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  }
+  button{
+  width: 150px;
+  text-align: center;
+  display: block;
+  padding: 20px;
+  margin:10px;
+}
