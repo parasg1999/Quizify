@@ -4,14 +4,11 @@ const router = express.Router();
 const con = require('../config/dbSetup');
 const isUserLoggedIn = require('../config/checkAuth');
 
-router.get('/add', (req, res) => {
-    res.render('addQuiz');
+router.get('/add', isUserLoggedIn, (req, res) => {
+    res.render('addQuiz' , {req});
 });
 
-router.post('/add', (req, res) => {
-    console.log(req.body);
-    return res.send("HELE");
-    req.user = {userId: 1};
+router.post('/add', isUserLoggedIn, (req, res) => {
     var insertQuiz = `INSERT INTO quiz(name, description, numberOfQuestions, postedBy) VALUES
         ("${req.body.name}", "${req.body.description}", ${req.body.number}, ${req.user.userId})`;
 
@@ -20,32 +17,35 @@ router.post('/add', (req, res) => {
 
         var quizId = insertedQuiz.insertId;
         var questionValues = ``;
-        
-        req.body.questions.forEach((question, index) => {
-            if(index !== 0) {
-                questionValues += `,`;
-            }
-            questionValues += `("${question.question}", "${question.option1}", "${question.option2}", "${question.option3}", "${question.option4}", ${question.answer}, ${quizId})`;
-        });
+
+        if(typeof req.body.question === "string") {
+            questionValues += `("${req.body.question}", "${req.body.option1}", "${req.body.option2}", "${req.body.option3}", "${req.body.option4}", ${req.body.correctoption}, ${quizId})`;            
+        } else {
+            req.body.question.forEach((question, index) => {
+                if(index !== 0) {
+                    questionValues += `,`;
+                }
+                questionValues += `("${question}", "${req.body.option1[index]}", "${req.body.option2[index]}", "${req.body.option3[index]}", "${req.body.option4[index]}", ${req.body.correctoption[index]}, ${quizId})`;
+            });
+        }
         
         var insertQuestions = `INSERT INTO questions(question, option1, option2, option3, option4, answer, quizId) VALUES ${questionValues}`;
         
         con.query(insertQuestions, (err, insertedQuestions) => {
             if(err) throw err;
             
-            console.log(insertedQuestions);
-            res.send('OK');
+            res.redirect('/');
         });
     });
 });
 
 // get /quiz/:id
-router.get('/:id', (req, res) => {
+router.get('/:id', isUserLoggedIn, (req, res) => {
     var getQuestions = `SELECT * FROM questions NATURAL JOIN quiz WHERE quizId = ${req.params.id}`;
     con.query(getQuestions, (err, result) => {
         if(err) throw err;
 
-        res.render('giveQuiz', {questions: result});
+        res.render('giveQuiz', {questions: result, req});
     });
 });
 
@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
     con.query(`SELECT * FROM quiz`, (err, result) => {
         if(err) throw err;
 
-        return res.render('home', {quizes: result});
+        return res.render('home', {quizes: result, req});
     });
 });
 
@@ -72,8 +72,7 @@ router.post('/answer/:id', isUserLoggedIn, (req, res) => {
         });
 
         con.query(`INSERT INTO leaderboard(quizId, userId, score) VALUES (${req.params.id}, ${req.user.userId}, ${score})`);
-        console.log(score);
-        // res.render('quizSummary', {result, submittedQuestion: req.body.questionId, submittedAnswer: req.body.answer});
+        res.render('score', {result, req, score});
     });
 });
 

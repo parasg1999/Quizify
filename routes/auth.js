@@ -10,7 +10,6 @@ router.get("/register", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    console.log(req.user);
     res.render(`login`);
 });
 
@@ -22,7 +21,6 @@ router.post("/register", (req, res) => {
 
     con.query(insertString, (err, result) => {
         if (err) throw err;
-        console.log(result);
         res.redirect("/auth/login");
     });
 });
@@ -33,7 +31,6 @@ router.post("/login", (req, res) => {
     con.query(selectString, (err, result) => {
         if (err) throw err;
         if(result.length === 0) {
-            console.log('NO');
             return res.redirect('/auth/login');
         }
 

@@ -1,10 +1,19 @@
 
-    document.getElementById("number").onchange = function (e) {
+    document.getElementById("name").onchange = function (e) { 
+        $('#nameOfQuiz').val($(this).val());
+    };
+
+    document.getElementById("quizDesc").onchange = function (e) { 
+        $('#quizDescription').val($(this).val());
+    };
+
+        document.getElementById("number").onchange = function (e) {
         // e.preventDefault();
         container.style.display = 'block';
         const output = [];
         var i;
         var num = $(this).val();
+        $('#numberOfQuestions').val(num);
         for(i=1;i<=num.toString();i++){
             output.push(` <div class="col-sm-12 card" id="ques">
             <div class="form-row">

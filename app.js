@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');
 const quizRoutes = require('./routes/quiz');
+const setUserObject = require('./config/loginFunction');
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(
         parameterLimit: 50000
     })
 );
+
+app.use(setUserObject);
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);

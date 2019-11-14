@@ -1,43 +1,21 @@
-<htmL>
-    <head>
-        <title>Insert question</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-        <style>
-            form{
-                height:fit-content;
-                padding: 1em;
-                /* border: 0.2em black solid; */
-                
-            }
-            #ques{
-                padding: 1em;
-                /* border: 0.2em black solid; */
-                margin:0.2em;
-            }
-        </style>
-    </head>
-    <body>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="inputPassword2" class="sr-only">Number</label>
-                <input type="number" class="form-control" id="number">
-            </div>
-        </div>
-        <form id="container" method="POST" action="/quiz/add">
-           <input id="name" type="text" name="name">
-           <input id="numberOfQuestions" type="text" name="number">
-        </form>
-        
+<% include ./partials/header.ejs %>
+<div style="padding: 10; padding-bottom: 0;">
+    <div class="form-group">
+        <input style="margin-top:2" type="number" placeholder="Number of questions" class="form-control" id="number">
+        <input type="text" placeholder="Name of Quiz" class="form-control" id="name">
+        <textarea style="margin-top:2" placeholder="Quiz Description" class="form-control" id="quizDesc"></textarea>
+    </div>
+</div>
+<form id="addQuizForm" method="POST" action="/quiz/add">
+    <input hidden id="numberOfQuestions" type="text" name="number">
+    <input hidden id="nameOfQuiz" type="text" name="name">
+    <textarea hidden placeholder="Quiz Description" class="form-control" id="quizDescription" name="description"></textarea>
+    <div id="container">
+    </div>
+</form>
 
-    </body>
-    <script src="/insertquestion.js"></script>
+</div>
+</body>
+<script src="/insertquestion.js"></script>
+
 </htmL>
