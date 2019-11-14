@@ -9,8 +9,13 @@ router.get('/', (req, res) => {
     res.redirect('/quiz');
 });
 
-router.get('/profile', (req, res) => {
-    res.render('profile');
+router.get('/profile', isUserLoggedIn, (req, res) => {
+    var selectAllQuiz = `SELECT * FROM quiz WHERE postedBy=${req.user.userId}`;
+    con.query(selectAllQuiz, (err, result) => {
+        if(err) throw err;
+        
+        res.render('profile', {req, result});
+    });
 });
 
 router.get('/leaderboard', (req, res) => {

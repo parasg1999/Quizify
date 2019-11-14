@@ -1,0 +1,28 @@
+<% include ./partials/header.ejs %>
+
+<div style="padding: 10;">
+    <br>
+    <center><h1>Your Quizzes</h1></center>
+    <br>
+    <% result.forEach((quiz, index) => { %>
+        <% if(index%2 === 0) {%>
+            <div class="row">
+                    <div class="col-sm-1"></div>
+                <%}%>
+                        <div class="col-sm-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=quiz.name %></h5>
+                                    <p class="card-text"><%=quiz.description%>
+                                    </p>
+                                    <a href="/quiz/delete/<%=quiz.quizId%>" class="btn btn-danger">Delete Quiz!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <% if(index%2 !== 0) {%>
+            </div><br />
+            <%}%>
+    <%}); %>
+</div>
+
+<% include ./partials/footer.ejs %>

@@ -49,8 +49,18 @@ router.get('/:id', isUserLoggedIn, (req, res) => {
     });
 });
 
+router.get('/delete/:id', isUserLoggedIn, (req, res) => {
+    var delteQuestion = `DELETE FROM quiz WHERE quizId = ${req.params.id}`;
+    con.query(delteQuestion, (err, result) => {
+        if(err) throw err;
+        res.redirect('/');
+    });
+});
+
 router.get('/', (req, res) => {
-    con.query(`SELECT * FROM quiz`, (err, result) => {
+    con.query(`SELECT q.name AS name, q.description AS description, username, quizId 
+        FROM quiz As q INNER JOIN users AS u 
+        ON q.postedBy = u.userId`, (err, result) => {
         if(err) throw err;
 
         return res.render('home', {quizes: result, req});

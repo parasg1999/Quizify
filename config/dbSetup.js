@@ -20,7 +20,7 @@ dbConfig.query(`CREATE TABLE IF NOT EXISTS quiz (
     numberOfQuestions INT,
     postedBy INT,
     PRIMARY KEY (quizId),
-    FOREIGN KEY (postedBy) REFERENCES users (userId))`
+    FOREIGN KEY (postedBy) REFERENCES users (userId) ON DELETE CASCADE)`
 );
 
 dbConfig.query(`CREATE TABLE IF NOT EXISTS questions (
@@ -33,7 +33,7 @@ dbConfig.query(`CREATE TABLE IF NOT EXISTS questions (
     answer INT,
     quizId INT(11),
     PRIMARY KEY (questionId),
-    FOREIGN KEY (quizId) REFERENCES quiz (quizId))`
+    FOREIGN KEY (quizId) REFERENCES quiz (quizId) ON DELETE CASCADE)`
 );
 
 dbConfig.query(`CREATE TABLE IF NOT EXISTS leaderboard (
@@ -42,8 +42,8 @@ dbConfig.query(`CREATE TABLE IF NOT EXISTS leaderboard (
     userId INT(11),
     score INT,
     PRIMARY KEY (leaderboardId),
-    FOREIGN KEY (quizId) REFERENCES quiz (quizId),
-    FOREIGN KEY (userId) REFERENCES users (userId))`
+    FOREIGN KEY (quizId) REFERENCES quiz (quizId) ON DELETE CASCADE,
+    FOREIGN KEY (userId) REFERENCES users (userId) ON DELETE CASCADE)`
 );
 
 

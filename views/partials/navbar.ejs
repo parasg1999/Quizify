@@ -11,7 +11,12 @@
       <a class="nav-item nav-link" href="/leaderboard">View Leaderboard</a>
     </div>
     <div class="navbar-nav my-2 my-lg-0">
-      <li class="nav-item dropdown">
+      <% if(typeof req.user !== 'undefined') {%>
+        <li class="nav-item nav-link">Hi <%=req.user.name.split(' ')[0] %>!</li>
+        <% } else {%>
+        <li class="nav-item nav-link">Hi Guest!</li>
+      <% } %>
+        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Account
