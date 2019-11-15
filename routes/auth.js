@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
 
         var verifyUser = isPasswordCorrect(req.body.password, result[0].password);
         if(!verifyUser) {
-            return res.render('login');
+            return res.redirect('/auth/login');
         }
     
         var authToken = generateAuthToken(result[0].username);

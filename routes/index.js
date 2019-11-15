@@ -26,7 +26,7 @@ router.get('/leaderboard', (req, res) => {
         leaderboard NATURAL JOIN users AS u GROUP BY quizId, userid) AS a 
         GROUP BY 
         userId
-        ORDER BY score
+        ORDER BY score desc
         LIMIT 15;`;
 
         con.query(getScore, (err, rows) => {
