@@ -14,7 +14,11 @@
                                 <br>
                                 ~ <%=quiz.username%>
                             </p>
-                            <a href="/quiz/<%=quiz.quizId%>" class="btn btn-primary">Challenge Me!</a>
+                            <% if(typeof req.user !== 'undefined' && quiz.username === req.user.username) { %>
+                                <button class="btn btn-disabled">You Uploaded the quiz</button>
+                            <% } else { %>
+                                <a href="/quiz/<%=quiz.quizId%>" class="btn btn-primary">Challenge Me!</a>
+                            <% } %>
                         </div>
                     </div>
                 </div>

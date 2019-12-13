@@ -41,10 +41,14 @@ router.post('/add', isUserLoggedIn, (req, res) => {
 
 // get /quiz/:id
 router.get('/:id', isUserLoggedIn, (req, res) => {
+
     var getQuestions = `SELECT * FROM questions NATURAL JOIN quiz WHERE quizId = ${req.params.id}`;
     con.query(getQuestions, (err, result) => {
         if(err) throw err;
 
+        if(result[0].postedBy === req.user.userId) {
+            return res.redirect('/');
+        }
         res.render('giveQuiz', {questions: result, req});
     });
 });

@@ -7,15 +7,20 @@
   </head>
   <body>
 
-<form class="box" action="/auth/register" method="POST">
-  <h2>Register</h2>
-  <input required type="text" name="name" placeholder="Name">
-  <input required type="text" name="username" placeholder="Username" autocomplete="off">
-  <input required type="email" name="email" placeholder="Email">
-  <input required type="password" name="password" placeholder="Password">
-  <input required type="password" name="confirmPassword" placeholder="Confirm Password">
-  <input type="submit" value="Register" value="Login">
-</form>
+    <div class="box">
+
+      <form action="/auth/register" method="POST">
+        <h2>Register</h2>
+        <input required type="text" name="name" placeholder="Name">
+        <input required type="text" name="username" placeholder="Username" autocomplete="off">
+        <input required type="email" name="email" placeholder="Email">
+        <input required type="password" name="password" placeholder="Password">
+        <input required type="password" name="confirmPassword" placeholder="Confirm Password">
+        <input type="submit" value="REGISTER" value="Login">
+      </form>
+      <a style="text-decoration: none;" href="/auth/login"><button>GOTO LOGIN</button></a>
+
+    </div>
 
 
   </body>
